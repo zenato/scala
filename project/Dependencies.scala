@@ -16,8 +16,11 @@ object Dependencies {
     Library.htmlCleaner
   )
 
-  val resolvers = DefaultOptions.resolvers(snapshot = true) ++ Seq(
-    "teamscala-nexus-repository" at "http://repo.teamscala.io/content/groups/public/"
+  val resolvers = Seq(
+    Resolver.typesafeRepo("releases"),
+    Resolver.typesafeRepo("snapshots"),
+    Resolver.sonatypeRepo("releases"),
+    Resolver.sonatypeRepo("snapshots")
   )
 }
 
