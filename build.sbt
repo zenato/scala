@@ -1,4 +1,9 @@
-lazy val `scala-root` = (project in file(".")).settings(publish := ()).aggregate(
+lazy val `scala-root` = (project in file(".")).settings(
+  publishArtifact := false,
+  publish := (),
+  bintrayRelease := (),
+  bintrayUnpublish := ()
+).aggregate(
   `scala-util`
 )
 

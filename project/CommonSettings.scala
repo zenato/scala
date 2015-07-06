@@ -23,6 +23,9 @@ object CommonSettings extends AutoPlugin {
     javacOptions in Compile ++= Seq("-encoding", "utf8", "-g"),
     resolvers ++= Dependencies.resolvers,
     parallelExecution in Test := false,
-    fork in Test := true
+    fork in Test := true,
+    licenses += ("Apache-2.0", url("http://www.apache.org/licenses/LICENSE-2.0.html")),
+    publishMavenStyle := true,
+    pomIncludeRepository := { _ => false }
   ) ++ graphSettings
 }
