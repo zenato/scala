@@ -17,7 +17,6 @@ object Dependencies {
   )
 
   val resolvers = Seq(
-    Resolver.typesafeRepo("releases"),
     Resolver.typesafeRepo("snapshots"),
     Resolver.sonatypeRepo("releases"),
     Resolver.sonatypeRepo("snapshots")
