@@ -38,6 +38,22 @@ object CommonSettings extends AutoPlugin {
     },
     bintrayReleaseOnPublish := !isSnapshot.value,
     publishMavenStyle := true,
-    pomIncludeRepository := { _ => false }
+    pomIncludeRepository := { _ => false },
+    pomExtra := {
+      <url>https://github.com/stonexx/scala</url>
+      <scm>https://github.com/stonexx/scala.git</scm>
+      <developers>
+        <developer>
+          <id>stonexx</id>
+          <name>Seok Ki Won</name>
+          <email>seok.kiwon@gmail.com</email>
+        </developer>
+        <developer>
+          <id>zenato</id>
+          <name>Lee Young Jin</name>
+          <email>me.yjlee@gmail.com</email>
+        </developer>
+      </developers>
+    }
   )
 }
