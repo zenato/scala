@@ -41,7 +41,10 @@ object CommonSettings extends AutoPlugin {
     pomIncludeRepository := { _ => false },
     pomExtra := {
       <url>https://github.com/stonexx/scala</url>
-      <scm>https://github.com/stonexx/scala.git</scm>
+      <scm>
+        <url>git://github.com/stonexx/scala.git</url>
+        <connection>scm:git:git://github.com/stonexx/scala.git</connection>
+      </scm>
       <developers>
         <developer>
           <id>stonexx</id>
