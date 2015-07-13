@@ -32,7 +32,7 @@ object CommonSettings extends AutoPlugin {
     credentials += Credentials(Path.userHome / ".ivy2" / ".credentials-teamscala"),
     publishTo := {
       if (isSnapshot.value)
-        Some("snapshots" at "http://repo.teamscala.io/content/repositories/snapshots")
+        Some("teamscala-snapshots" at "http://repo.teamscala.io/content/repositories/snapshots")
       else
         (publishTo in bintray).value
     },
