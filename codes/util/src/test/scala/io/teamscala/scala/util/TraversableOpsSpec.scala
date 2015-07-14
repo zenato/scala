@@ -2,7 +2,7 @@ package io.teamscala.scala.util
 
 import org.scalatest._
 
-class RichTraversableLikeSpec extends FlatSpec with Matchers {
+class TraversableOpsSpec extends FlatSpec with Matchers {
 
   case class Person(name: String, age: Int)
 
@@ -30,6 +30,6 @@ class RichTraversableLikeSpec extends FlatSpec with Matchers {
 
   "#simple" should "test simple" in {
     people.map(_.name).simple(" 외 ", "건", "") shouldBe "tester1 외 8건"
-    Nil.simple(" 외 ", "건", "디폴트") shouldBe "디폴트"
+    List.empty[String].simple(" 외 ", "건", "디폴트") shouldBe "디폴트"
   }
 }

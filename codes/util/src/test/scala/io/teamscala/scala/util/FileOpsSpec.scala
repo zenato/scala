@@ -1,13 +1,13 @@
 package io.teamscala.scala.util
 
-import scalax.io.JavaConverters._
-import scalax.io._
-
 import java.io.File
 
 import org.scalatest._
 
-class RichFileSpec extends FlatSpec with Matchers {
+import scalax.io.JavaConverters._
+import scalax.io._
+
+class FileOpsSpec extends FlatSpec with Matchers {
 
   "#nonComflictFile" should "중복되지않는 파일 생성" in {
     val tmpDir = new File(System.getProperty("java.io.tmpdir"))

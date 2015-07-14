@@ -10,5 +10,5 @@ scalaVersion := "2.11.7"
 
 resolvers += Resolver.jcenterRepo
 
-libraryDependencies += "io.teamscala.scala" %% "scala-util" % "0.2.0"
+libraryDependencies += "io.teamscala.scala" %% "scala-util" % "0.2.1"
 ```

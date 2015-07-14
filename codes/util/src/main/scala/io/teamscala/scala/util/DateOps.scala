@@ -7,7 +7,7 @@ import org.apache.commons.lang3.time.{DateFormatUtils, DateUtils}
 
 import scala.concurrent.duration._
 
-final class RichDate(val self: Date) extends AnyVal {
+final class DateOps(val self: Date) extends AnyVal {
   import Calendar._
 
   @inline def format(pattern: String,

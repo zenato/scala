@@ -8,7 +8,7 @@ import org.apache.commons.lang3.ClassUtils
 
 import scala.reflect.ClassTag
 
-final class RichClass[T](val self: Class[T]) extends AnyVal {
+final class ClassOps[T](val self: Class[T]) extends AnyVal {
   def isSimpleType: Boolean =
     (ClassUtils.isPrimitiveOrWrapper(self)
      || classOf[CharSequence].isAssignableFrom(self)
@@ -20,15 +20,12 @@ final class RichClass[T](val self: Class[T]) extends AnyVal {
      || self.isEnum)
 
   def findAnnotation[A <: Annotation : ClassTag](annotationClass: Class[A]): Option[A] =
-    Option(self getAnnotation annotationClass)
-    .orElse {
+    Option(self getAnnotation annotationClass).orElse {
       self.getInterfaces.find(_ isAnnotationPresent annotationClass).flatMap(_.findAnnotation[A])
-    }
-    .orElse {
+    }.orElse {
       if (classOf[Annotation] isAssignableFrom self) None
       else self.getAnnotations.map(_.annotationType).find(_ isAnnotationPresent annotationClass).flatMap(_.findAnnotation[A])
-    }
-    .orElse {
+    }.orElse {
       Option(self.getSuperclass).filter(_ != classOf[Object]).flatMap(_.findAnnotation[A])
     }
 

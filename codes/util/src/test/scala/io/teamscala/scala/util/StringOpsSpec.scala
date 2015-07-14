@@ -2,10 +2,10 @@ package io.teamscala.scala.util
 
 import java.util.{Calendar, Locale}
 
-import org.htmlcleaner.{HtmlSerializer, CleanerProperties, PrettyHtmlSerializer}
+import org.htmlcleaner.{CleanerProperties, HtmlSerializer, PrettyHtmlSerializer}
 import org.scalatest._
 
-class RichStringSpec extends FlatSpec with Matchers {
+class StringOpsSpec extends FlatSpec with Matchers {
 
   "#isDigits" should "문자열이 모두 숫자형식의 문자로 이루어졌는지 검사" in {
     "123467890".isDigits shouldBe true

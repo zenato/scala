@@ -12,7 +12,7 @@ import org.htmlcleaner._
 import scala.util.matching.Regex
 import scala.util.matching.Regex._
 
-object RichString {
+object StringOps {
   final val RegexSnakeCase                         = """[-_ ]([\da-z])""".r
   final val RegexDuplicatedSlash                   = """/{2,}""".r
   final val RegexAntStylePatternSpecialCharacters  = """[-\[\]{}()+.,\\^$|#\s]""".r
@@ -30,8 +30,8 @@ object RichString {
   }
 }
 
-final class RichString(val self: String) extends AnyVal {
-  import RichString._
+final class StringOps(val self: String) extends AnyVal {
+  import StringOps._
 
   @inline def isDigits: Boolean = self.nonEmpty && self.forall(_.isDigit)
 
@@ -45,17 +45,17 @@ final class RichString(val self: String) extends AnyVal {
     val pattern = RegexAntStylePatternWildcardsWithSlash.replaceAllIn(escapedPath, {
       _.group(0) match {
         case "/**" => "(?:/{1,}.*)?"
-        case "**"  => ".*"
-        case "/*"  => "(?:/{1,}[^/]*)?"
-        case "*"   => "[^/]*"
-        case "?"   => "[^/]"
-        case "/"   => "/{1,}"
+        case "**" => ".*"
+        case "/*" => "(?:/{1,}[^/]*)?"
+        case "*" => "[^/]*"
+        case "?" => "[^/]"
+        case "/" => "/{1,}"
       }
     })
     ("^(" + pattern + ")$").r
   }
 
-  /** Shortcut for [[io.teamscala.scala.util.RichString#toAntStylePattern]] */
+  /** Shortcut for [[io.teamscala.scala.util.StringOps#toAntStylePattern]] */
   @inline def a: Regex = toAntStylePattern
 
   @inline def prependEachLine(prefix: String): String = RegexBeginningOfEachLine.replaceAllIn(self, prefix)
@@ -155,7 +155,7 @@ final class RichString(val self: String) extends AnyVal {
       case Groups(_, value) if "(?i)javascript:".r.findFirstIn(value).isDefined => ""
       // Avoid vbscript:... expressions
       case Groups(_, value) if "(?i)vbscript:".r.findFirstIn(value).isDefined => ""
-      case Match(m)                                                           => m
+      case Match(m) => m
     }: Match => String)
   }
 }

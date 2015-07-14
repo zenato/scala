@@ -8,12 +8,12 @@ import org.apache.commons.lang3.RandomStringUtils.randomAlphanumeric
 
 import scala.util.matching.Regex.Groups
 
-object RichFile {
+object FileOps {
   final val RegexNumberedBaseName = """(.*)\((\d+)\)$""".r
 }
 
-final class RichFile(val self: File) extends AnyVal {
-  import RichFile._
+final class FileOps(val self: File) extends AnyVal {
+  import FileOps._
 
   def nonComflictFile: File = {
     var path = if (self.isDirectory) self.toPath.resolve(randomAlphanumeric(8)) else self.toPath

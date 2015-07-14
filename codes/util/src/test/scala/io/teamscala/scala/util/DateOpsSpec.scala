@@ -1,12 +1,12 @@
 package io.teamscala.scala.util
 
-import java.util.{Locale, TimeZone, Calendar}
+import java.util.{Calendar, Locale, TimeZone}
 
 import org.scalatest._
 
 import scala.concurrent.duration._
 
-class RichDateSpec extends FlatSpec with Matchers {
+class DateOpsSpec extends FlatSpec with Matchers {
 
   def getDate(year: Int, month: Int, date: Int,
               hourOfDay: Int, minute: Int, second: Int,

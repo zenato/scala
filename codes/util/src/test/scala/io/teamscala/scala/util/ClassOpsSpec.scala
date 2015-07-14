@@ -2,7 +2,7 @@ package io.teamscala.scala.util
 
 import org.scalatest._
 
-class RichClassSpec extends FlatSpec with Matchers {
+class ClassOpsSpec extends FlatSpec with Matchers {
 
   "#isSimpleType" should "심플 타입인지 검사" in {
     classOf[Boolean].isSimpleType shouldBe true
@@ -27,7 +27,7 @@ class RichClassSpec extends FlatSpec with Matchers {
     classOf[java.net.URI].isSimpleType shouldBe true
     classOf[java.util.Locale].isSimpleType shouldBe true
     classOf[Class[_]].isSimpleType shouldBe true
-    classOf[RichClassSpec].isSimpleType shouldBe false
+    classOf[ClassOpsSpec].isSimpleType shouldBe false
   }
 
   "#findAnnotation" should "Java 어노테이션을 찾는다" in {
