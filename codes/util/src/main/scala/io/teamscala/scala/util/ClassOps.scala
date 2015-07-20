@@ -11,15 +11,15 @@ import scala.reflect.ClassTag
 final class ClassOps[T](val self: Class[T]) extends AnyVal {
   def isSimpleType: Boolean =
     (ClassUtils.isPrimitiveOrWrapper(self)
-     || classOf[CharSequence].isAssignableFrom(self)
-     || classOf[Number].isAssignableFrom(self)
-     || classOf[Date].isAssignableFrom(self)
-     || classOf[URI] == self
-     || classOf[Locale] == self
-     || classOf[Class[_]] == self
-     || self.isEnum)
+      || classOf[CharSequence].isAssignableFrom(self)
+      || classOf[Number].isAssignableFrom(self)
+      || classOf[Date].isAssignableFrom(self)
+      || classOf[URI] == self
+      || classOf[Locale] == self
+      || classOf[Class[_]] == self
+      || self.isEnum)
 
-  def findAnnotation[A <: Annotation : ClassTag](annotationClass: Class[A]): Option[A] =
+  def findAnnotation[A <: Annotation: ClassTag](annotationClass: Class[A]): Option[A] =
     Option(self getAnnotation annotationClass).orElse {
       self.getInterfaces.find(_ isAnnotationPresent annotationClass).flatMap(_.findAnnotation[A])
     }.orElse {
@@ -29,5 +29,5 @@ final class ClassOps[T](val self: Class[T]) extends AnyVal {
       Option(self.getSuperclass).filter(_ != classOf[Object]).flatMap(_.findAnnotation[A])
     }
 
-  @inline def findAnnotation[A <: Annotation : ClassTag]: Option[A] = findAnnotation(TypeTagUtils.typeToClass[A])
+  @inline def findAnnotation[A <: Annotation: ClassTag]: Option[A] = findAnnotation(TypeTagUtils.typeToClass[A])
 }

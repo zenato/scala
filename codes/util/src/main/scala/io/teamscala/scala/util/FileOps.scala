@@ -22,7 +22,7 @@ final class FileOps(val self: File) extends AnyVal {
         val fileName = path.getFileName.toString
         val (maybeNumberedBasename, suffix) = Option(getBaseName(fileName)).filter(_.nonEmpty) match {
           case Some(name) => name -> Option(getExtension(fileName)).filter(_.nonEmpty).map("." + _).getOrElse("")
-          case None => fileName -> ""
+          case None       => fileName -> ""
         }
         RegexNumberedBaseName.findFirstMatchIn(maybeNumberedBasename).map {
           case Groups(name, cnt) => (name, cnt.toInt, suffix)

@@ -13,13 +13,13 @@ import scala.util.matching.Regex
 import scala.util.matching.Regex._
 
 object StringOps {
-  final val RegexSnakeCase                         = """[-_ ]([\da-z])""".r
-  final val RegexDuplicatedSlash                   = """/{2,}""".r
-  final val RegexAntStylePatternSpecialCharacters  = """[-\[\]{}()+.,\\^$|#\s]""".r
+  final val RegexSnakeCase = """[-_ ]([\da-z])""".r
+  final val RegexDuplicatedSlash = """/{2,}""".r
+  final val RegexAntStylePatternSpecialCharacters = """[-\[\]{}()+.,\\^$|#\s]""".r
   final val RegexAntStylePatternWildcardsWithSlash = """(/?\*\*)|(/?\*)|(\?)|(/)""".r
-  final val RegexBeginningOfEachLine               = """(?m)^""".r
-  final val RegexAllTags                           = """<[/\!]*?[^<>]*?>""".r
-  final val RegexTagAttributes                     = """(\S+)=["']?((?:.(?!["']?\s+(?:\S+)=|[>"']))+.)["']?""".r
+  final val RegexBeginningOfEachLine = """(?m)^""".r
+  final val RegexAllTags = """<[/\!]*?[^<>]*?>""".r
+  final val RegexTagAttributes = """(\S+)=["']?((?:.(?!["']?\s+(?:\S+)=|[>"']))+.)["']?""".r
 
   def defaultHtmlCleanerProperties: CleanerProperties = {
     val props = new CleanerProperties()
@@ -45,11 +45,11 @@ final class StringOps(val self: String) extends AnyVal {
     val pattern = RegexAntStylePatternWildcardsWithSlash.replaceAllIn(escapedPath, {
       _.group(0) match {
         case "/**" => "(?:/{1,}.*)?"
-        case "**" => ".*"
-        case "/*" => "(?:/{1,}[^/]*)?"
-        case "*" => "[^/]*"
-        case "?" => "[^/]"
-        case "/" => "/{1,}"
+        case "**"  => ".*"
+        case "/*"  => "(?:/{1,}[^/]*)?"
+        case "*"   => "[^/]*"
+        case "?"   => "[^/]"
+        case "/"   => "/{1,}"
       }
     })
     ("^(" + pattern + ")$").r
@@ -66,9 +66,11 @@ final class StringOps(val self: String) extends AnyVal {
     if (self.length <= length - suffix.length) self
     else self.substring(0, length - suffix.length) + suffix
 
-  def parseDate[T <: String](pattern: T,
-                             timeZone: TimeZone = TimeZone.getDefault,
-                             locale: Locale = Locale.getDefault): Date = {
+  def parseDate[T <: String](
+    pattern:  T,
+    timeZone: TimeZone = TimeZone.getDefault,
+    locale:   Locale   = Locale.getDefault
+  ): Date = {
     val parser = new SimpleDateFormat(pattern, locale)
     parser.setLenient(true)
     parser.setTimeZone(timeZone)
@@ -117,10 +119,12 @@ final class StringOps(val self: String) extends AnyVal {
   @inline def space2nbsp: String = StringUtils.replace(self, " ", "&nbsp;")
   @inline def nbsp2space: String = StringUtils.replace(self, "&nbsp;", " ")
 
-  def htmlArrange(parentTagName: String = "html",
-                  innerHtml: Boolean = false,
-                  props: CleanerProperties = defaultHtmlCleanerProperties,
-                  serializer: CleanerProperties => HtmlSerializer = new SimpleHtmlSerializer(_)): String = {
+  def htmlArrange(
+    parentTagName: String                              = "html",
+    innerHtml:     Boolean                             = false,
+    props:         CleanerProperties                   = defaultHtmlCleanerProperties,
+    serializer:    CleanerProperties => HtmlSerializer = new SimpleHtmlSerializer(_)
+  ): String = {
     val cleaner = new HtmlCleaner(props)
     val ser = serializer(props)
     val rootNode = cleaner.clean(self)
@@ -137,10 +141,12 @@ final class StringOps(val self: String) extends AnyVal {
     }
   }
 
-  def htmlCleanXSS(parentTagName: String = "html",
-                   innerHtml: Boolean = false,
-                   props: CleanerProperties = defaultHtmlCleanerProperties,
-                   serializer: CleanerProperties => HtmlSerializer = new SimpleHtmlSerializer(_)): String = {
+  def htmlCleanXSS(
+    parentTagName: String                              = "html",
+    innerHtml:     Boolean                             = false,
+    props:         CleanerProperties                   = defaultHtmlCleanerProperties,
+    serializer:    CleanerProperties => HtmlSerializer = new SimpleHtmlSerializer(_)
+  ): String = {
     props.setPruneTags("script,style,iframe")
     RegexTagAttributes.replaceAllIn(htmlArrange(parentTagName, innerHtml, props, serializer), {
       // Avoid anything in a src='...' type of expression

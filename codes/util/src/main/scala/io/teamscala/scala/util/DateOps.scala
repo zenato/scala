@@ -10,10 +10,11 @@ import scala.concurrent.duration._
 final class DateOps(val self: Date) extends AnyVal {
   import Calendar._
 
-  @inline def format(pattern: String,
-                     timeZone: TimeZone = TimeZone.getDefault,
-                     locale: Locale = Locale.getDefault): String =
-    DateFormatUtils.format(self, pattern, timeZone, locale)
+  @inline def format(
+    pattern:  String,
+    timeZone: TimeZone = TimeZone.getDefault,
+    locale:   Locale   = Locale.getDefault
+  ): String = DateFormatUtils.format(self, pattern, timeZone, locale)
 
   @inline def addYears(amount: Int): Date = DateUtils.addYears(self, amount)
   @inline def addMonths(amount: Int): Date = DateUtils.addMonths(self, amount)
@@ -45,12 +46,12 @@ final class DateOps(val self: Date) extends AnyVal {
   @inline def diff(to: Date): Duration = Duration(to.getTime - self.getTime, TimeUnit.MILLISECONDS)
 
   /**
-   * 해당 날짜의 만료시간을 가져온다.
-   *
-   * @param timeZone the time zone.
-   * @param locale the locale.
-   * @return 만료시간. (23시 59분 59초 999밀리초)
-   */
+    * 해당 날짜의 만료시간을 가져온다.
+    *
+    * @param timeZone the time zone.
+    * @param locale the locale.
+    * @return 만료시간. (23시 59분 59초 999밀리초)
+    */
   def ofExpiry(timeZone: TimeZone = TimeZone.getDefault, locale: Locale = Locale.getDefault): Date = {
     val c = Calendar.getInstance(timeZone, locale)
     c.setLenient(false)
