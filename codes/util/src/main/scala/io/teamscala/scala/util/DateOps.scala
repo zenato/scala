@@ -46,12 +46,12 @@ final class DateOps(val self: Date) extends AnyVal {
   @inline def diff(to: Date): Duration = Duration(to.getTime - self.getTime, TimeUnit.MILLISECONDS)
 
   /**
-    * 해당 날짜의 만료시간을 가져온다.
-    *
-    * @param timeZone the time zone.
-    * @param locale the locale.
-    * @return 만료시간. (23시 59분 59초 999밀리초)
-    */
+   * 해당 날짜의 만료시간을 가져온다.
+   *
+   * @param timeZone the time zone.
+   * @param locale the locale.
+   * @return 만료시간. (23시 59분 59초 999밀리초)
+   */
   def ofExpiry(timeZone: TimeZone = TimeZone.getDefault, locale: Locale = Locale.getDefault): Date = {
     val c = Calendar.getInstance(timeZone, locale)
     c.setLenient(false)
