@@ -9,15 +9,14 @@ import org.apache.commons.lang3.ClassUtils
 import scala.reflect.ClassTag
 
 final class ClassOps[T](val self: Class[T]) extends AnyVal {
-  def isSimpleType: Boolean =
-    (ClassUtils.isPrimitiveOrWrapper(self)
-      || classOf[CharSequence].isAssignableFrom(self)
-      || classOf[Number].isAssignableFrom(self)
-      || classOf[Date].isAssignableFrom(self)
-      || classOf[URI] == self
-      || classOf[Locale] == self
-      || classOf[Class[_]] == self
-      || self.isEnum)
+  def isSimpleType: Boolean = ClassUtils.isPrimitiveOrWrapper(self) ||
+    classOf[CharSequence].isAssignableFrom(self) ||
+    classOf[Number].isAssignableFrom(self) ||
+    classOf[Date].isAssignableFrom(self) ||
+    classOf[URI] == self ||
+    classOf[Locale] == self ||
+    classOf[Class[_]] == self ||
+    self.isEnum
 
   def findAnnotation[A <: Annotation: ClassTag](annotationClass: Class[A]): Option[A] =
     Option(self getAnnotation annotationClass).orElse {
